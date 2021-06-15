@@ -14,7 +14,7 @@ import { errorAlert } from './layer'
  * HTTP 异常处理
  * @param { Object } response - 响应数据
  */
-export const httpException = (response: AxiosResponse) => {
+export const httpException = (response: AxiosResponse<AxiosResult>) => {
   const { status, data, config } = response
 
   switch (status) {

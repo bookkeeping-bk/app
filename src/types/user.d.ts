@@ -3,13 +3,10 @@
  * @Date: 2021-06-11 14:04:45
  */
 
-interface User {
-  userId: string
+interface UserInfo {
+  id?: number
+  avatar?: string
+  mobile: string
   username: string
-  password: string
-  avatar: string
-  role?: string
-  tag?: string
-  createTime: number
-  online?: 1 | 0 // 是否在线
+  nickname: string
 }
