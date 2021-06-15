@@ -1,0 +1,115 @@
+/* Transition
+-------------------------- */
+$--all-transition: all 0.3s;
+$--fade-linear-transition: opacity 0.3s linear;
+$--border-transition-base: border-color 0.2s
+  cubic-bezier(0.645, 0.045, 0.355, 1);
+
+/* Colors
+-------------------------- */
+$--color-primary: #409eff;
+$--color-secondary: #f57403;
+$--color-white: #fff;
+$--color-black: #000;
+
+$--color-text-primary: #d9d9d9;
+$--color-text-regular: #666;
+$--color-text-secondary: #909399;
+$--color-text-placeholder: #c0c4cc;
+
+$--color-success: #67c23a;
+$--color-warning: #e6a23c;
+$--color-danger: #f56c6c;
+$--color-info: $--color-text-secondary;
+
+/* Background
+-------------------------- */
+$--background-color-base: #202020;
+
+/* Typography
+-------------------------- */
+$--font-size-extra-large: 20px;
+$--font-size-large: 18px;
+$--font-size-medium: 16px;
+$--font-size-base: 14px;
+$--font-size-small: 12px;
+$--font-weight-primary: 500;
+
+/* Border
+-------------------------- */
+$--border-color-base: #5c5c5c;
+$--border-radius-base: 4px;
+$--border-radius-small: 2px;
+$--border-radius-circle: 100%;
+$--border-width-base: 1px;
+$--border-style-base: solid;
+$--border-base: $--border-width-base $--border-style-base $--border-color-base;
+
+/* Input
+-------------------------- */
+$--input-font-size: $--font-size-base;
+$--input-font-color: inherit;
+$--input-width: 100%;
+$--input-height: 44px;
+$--input-border: $--border-base;
+$--input-border-radius: $--border-radius-small;
+$--input-background-color: transparent;
+$--input-focus-border: $--color-primary;
+// $--input-color-disabled: ;
+// $--input-placeholder-color: $--color-text-placeholder;
+// $--input-focus-border: $--color-primary;
+
+// /* Button
+// -------------------------- */
+// $--button-height: 40px;
+// $--button-font-size: $--font-size-base;
+// $--button-font-weight: $--font-weight-primary;
+// $--button-border-radius: $--border-radius-base;
+// $--button-primary-font-color: $--color-white;
+// // $--button-disabled-font-color: $--color-text-placeholder;
+// // $--button-disabled-background-color: $--color-white;
+// // $--button-disabled-border-color: $--border-color-lighter;
+// $--button-primary-font-color: $--color-white;
+// // $--button-primary-border-color: $--color-primary;
+// $--button-primary-background-color: $--color-primary;
+// $--button-active-background-color: $--color-black;
+
+// /* MessageBox
+// -------------------------- */
+// $--messagebox-title-color: #333;
+// $--messagebox-width: 85%;
+// $--messagebox-font-size: $--font-size-medium;
+// $--messagebox-padding: 30px 10px;
+// $--messagebox-content-color: #999;
+// $--messagebox-border: $--border-width-base $--border-style-base #ddd;
+// $--messagebox-background-color: $--color-white;
+
+// /* Toast
+// -------------------------- */
+// $--toast-color: $--color-white;
+// $--toast-background-color: rgba(0, 0, 0, 0.7);
+// $--toast-padding: 15px;
+// $--toast-font-size: $--font-size-base;
+// $--toast-border-radius: $--border-radius-base;
+
+// /* Loading
+// --------------------------*/
+// // 宽高值
+// $--loading-size: 40px;
+
+// /* Indicator
+// --------------------------*/
+// $--indicator-size: 200px;
+// $--indicator-border-radius: 10px;
+// $--indicator-padding: 40px;
+// $--indicator-color: $--color-white;
+// $--indicator-font-size: $--font-size-base;
+
+/* Tabbar
+--------------------------*/
+$--tabbar-height: 50px;
+$--tabbar-background-color: #303030;
+$--tabbar-active-color: $--color-primary;
+$--tabbar-font-size: $--font-size-small;
+$--tabbar-font-weight: $--font-weight-primary;
+$--tabbar-icon-font-size: $--font-size-extra-large;
