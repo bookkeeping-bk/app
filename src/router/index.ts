@@ -9,6 +9,9 @@ import {
   createWebHistory,
   RouteRecordRaw,
 } from 'vue-router'
+import store from '@/store'
+import userStore, { UserTypes } from '@/store/modules/user'
+import { getAuthToken } from '@/utils/storage'
 
 const IS_HISTORY = import.meta.env.VITE_ROUTER_HISTORY === 'true'
 
@@ -34,6 +37,18 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: IS_HISTORY ? createWebHistory() : createWebHashHistory(),
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title as string
+
+  if (getAuthToken()) {
+    if (!(userStore.state.userInfo as UserInfo).id) {
+      store.dispatch(UserTypes.GET_USER_INFO)
+    }
+  }
+
+  next()
 })
 
 export default router
