@@ -34,9 +34,9 @@ import { defineComponent, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { Toast } from 'vant'
 import { login } from '@/api/auth'
-import Input from './components/input/index.vue'
-import { setAuthToken } from '@/utils/storage'
 import router from '@/router'
+import { setAuthToken } from '@/utils/storage'
+import Input from './components/input/index.vue'
 
 const { VITE_USERNAME, VITE_PASSWORD, MODE } = import.meta.env
 
