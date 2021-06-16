@@ -1,6 +1,11 @@
 <template>
   <ul class="tabbar__wrapper">
-    <router-link v-for="item in tabbars" :to="item.path" class="tabbar__item">
+    <router-link
+      v-for="item in tabbars"
+      :to="item.path"
+      :key="item.path"
+      class="tabbar__item"
+    >
       <button v-if="!item.path" class="tabbar__edit">
         <be-iconfont :icon="item.icon" class="tabbar__edit--icon" />
       </button>
@@ -12,29 +17,25 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive } from 'vue'
+<script setup>
+import { reactive } from 'vue'
 import Iconfont from '@/components/iconfont/index.vue'
 
-export default defineComponent({
+const tabbars = reactive([
+  { path: '/bills', icon: '#icon-bill', name: '账单' },
+  { path: '/account', icon: '#icon-account', name: '账户' },
+  { path: '', icon: '#icon-puls', name: '' },
+  { path: '/stats', icon: '#icon-stats', name: '统计' },
+  { path: '/home', icon: '#icon-user', name: '我的' },
+])
+</script>
+<script>
+export default {
   name: 'BeTabbar',
-
-  setup() {
-    const tabbars = reactive([
-      { path: '/bills', icon: '#icon-bill', name: '账单' },
-      { path: '/account', icon: '#icon-account', name: '账户' },
-      { path: '', icon: '#icon-puls', name: '' },
-      { path: '/stats', icon: '#icon-stats', name: '统计' },
-      { path: '/home', icon: '#icon-user', name: '我的' },
-    ])
-
-    return { tabbars }
-  },
-
   components: {
     [Iconfont.name]: Iconfont,
   },
-})
+}
 </script>
 
 <style lang="scss" scoped>
