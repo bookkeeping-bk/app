@@ -1,15 +1,13 @@
 <template>
-  <router-view />
-  <be-tabbar />
+  <div>账单</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Tabbar from '@/components/tabbar/index.vue'
 
 export default defineComponent({
-  components: {
-    [Tabbar.name]: Tabbar,
+  setup() {
+    return {}
   },
 })
 </script>

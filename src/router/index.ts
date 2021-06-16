@@ -32,6 +32,20 @@ const routes: RouteRecordRaw[] = [
     component: () =>
       import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
   },
+  {
+    path: '/',
+    redirect: 'bills',
+    component: () =>
+      import(/* webpackChunkName: "layouts" */ '@/layouts/index.vue'),
+    children: [
+      {
+        path: 'bills',
+        meta: { title: setTitle('账单') },
+        component: () =>
+          import(/* webpackChunkName: "bills" */ '@/views/bills/index.vue'),
+      },
+    ],
+  },
 ]
 
 const router = createRouter({
