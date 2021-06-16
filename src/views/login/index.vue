@@ -41,6 +41,10 @@ import Input from './components/input/index.vue'
 const { VITE_USERNAME, VITE_PASSWORD, MODE } = import.meta.env
 
 export default defineComponent({
+  components: {
+    [Input.name]: Input,
+  },
+
   setup() {
     const state = reactive({ route: useRoute(), isLoading: false })
 
@@ -81,10 +85,6 @@ export default defineComponent({
 
     return { state, formData, rules, submitLogin }
   },
-
-  components: {
-    [Input.name]: Input,
-  },
 })
 </script>
 
@@ -99,4 +99,3 @@ export default defineComponent({
   }
 }
 </style>
-

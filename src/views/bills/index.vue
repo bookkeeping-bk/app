@@ -1,5 +1,7 @@
 <template>
   <be-bill-header :month-bill-info="monthBillInfo" />
+
+  <be-bill-list :bills="state.bills" />
 </template>
 
 <script lang="ts">
@@ -8,8 +10,14 @@ import dayjs from 'dayjs'
 import { getBills } from '@/api/bills'
 import useQuery from '@/hooks/use-query'
 import Header from './components/header.vue'
+import List from './components/list.vue'
 
 export default defineComponent({
+  components: {
+    [Header.name]: Header,
+    [List.name]: List,
+  },
+
   setup() {
     const queryData = useQuery()
     const state = reactive({
@@ -36,10 +44,6 @@ export default defineComponent({
     fetchBills()
 
     return { state, monthBillInfo }
-  },
-
-  components: {
-    [Header.name]: Header,
   },
 })
 </script>
