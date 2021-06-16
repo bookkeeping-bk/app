@@ -1,7 +1,20 @@
 /*
  * @Author: Mojie
- * @Date: 2021-06-11 15:01:53
+ * @Date: 2021-06-16 15:16:57
  */
 
-// 声明农历插件
-declare module 'solarlunar'
+/**
+ * Axios HTTP 返回的结果
+ */
+interface AxiosResult<T = any> {
+  message: string
+  meta: T
+}
+
+/**
+ * 公用分页参数
+ */
+interface Pagination {
+  currentPage: number
+  pageSize: number
+}
