@@ -43,12 +43,10 @@ interface Bill {
   images: string
   remark: string
   createdAt: string
-
-  // FIXME: 优化
-  billCategory: object
-  paymentSource: object
-  user: object
-  book: object
+  billCategory: BillCategorys
+  paymentSource: PaymentSources
+  user: UserInfo
+  book: Book
 
   /**
    * 记录时间
@@ -62,5 +60,5 @@ interface Bill {
 interface BillData extends Pagination {
   totalPage: number
   monthInfo: MonthBillInfo
-  list: object
+  list: Bill[]
 }
