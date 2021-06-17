@@ -22,14 +22,20 @@
     description="暂无数据"
   />
 
-  <be-bill-details ref="billDetails" @edit="handleEdit" />
+  <be-bill-details
+    ref="billDetails"
+    @edit="handleEdit"
+    @delete="handleDelete"
+  />
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import dayjs from 'dayjs'
 import { Toast } from 'vant'
-import { getBills } from '@/api/bills'
+import { DialogAction } from 'vant/lib/dialog/Dialog'
+import { deleteBill, getBills } from '@/api/bills'
+import { confirmDelete } from '@/utils/layer'
 import useQuery from '@/hooks/use-query'
 import Header from './components/header.vue'
 import List from './components/list.vue'
@@ -111,8 +117,38 @@ export default defineComponent({
       state.bill = bill
     }
 
+    /**
+     * 处理编辑账单
+     */
     const handleEdit = (bill: Bill) => {
       console.log(bill)
+    }
+
+    /**
+     * 处理删除账单
+     */
+    const handleDelete = async (bill: Bill) => {
+      const { state } = billDetails.value
+      const beforeClose = (action: DialogAction): Promise<boolean> => {
+        return new Promise((resolve) => {
+          if (action === 'confirm') {
+            deleteBill(bill.id).then(() => {
+              resolve(true)
+            })
+          } else {
+            resolve(true)
+          }
+        })
+      }
+
+      try {
+        await confirmDelete({ beforeClose })
+        state.show = false
+        Toast('删除成功')
+        onRefresh()
+      } catch {
+        return false
+      }
     }
 
     onMounted(async () => {
@@ -132,6 +168,7 @@ export default defineComponent({
       onRefresh,
       getDetails,
       handleEdit,
+      handleDelete,
     }
   },
 })
