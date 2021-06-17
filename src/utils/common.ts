@@ -66,6 +66,6 @@ export const formatTime = (
  */
 export const lunarCalendar = (date: string | number) => {
   const params = formatTime(date, 'YYYY-MM-DD').split('-')
-  const { monthCn, dayCn } = solarlunar.solarlunar.solar2lunar(...params)
+  const { monthCn, dayCn } = solarlunar.solar2lunar(...params)
   return `${formatTime(date, 'YYYY年MM月DD日')} - 农历${monthCn}${dayCn}`
 }
