@@ -49,3 +49,14 @@ button {
   width: 20px !important;
   height: 20px !important;
 }
+
+// vant popup全屏样式
+.popup-fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background-color: $--background-color-base !important;
+  font-size: $--font-size-base;
+}
+.van-field__label {
+  flex: none !important;
+}
