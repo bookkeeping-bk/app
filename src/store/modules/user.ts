@@ -5,14 +5,10 @@
 
 import { ActionTree, MutationTree } from 'vuex'
 import { getUserInfo } from '@/api/user'
-
-export enum UserTypes {
-  GET_USER_INFO = 'GET_USER_INFO',
-  SET_USER_INFO = 'SET_USER_INFO',
-}
+import { UserInfoTypeEnum } from '@/enums/app-enum'
 
 type UserState = {
-  userInfo: UserInfo | object
+  userInfo: UserInfo | unknown
 }
 
 const state: UserState = {
@@ -20,15 +16,15 @@ const state: UserState = {
 }
 
 const mutations: MutationTree<UserState> = {
-  [UserTypes.SET_USER_INFO](state: UserState, userInfo: UserInfo) {
+  [UserInfoTypeEnum.SET_USER_INFO](state: UserState, userInfo: UserInfo) {
     state.userInfo = userInfo
   },
 }
 
-const actions: ActionTree<any, any> = {
-  async [UserTypes.GET_USER_INFO]({ commit }) {
+const actions: ActionTree<unknown, unknown> = {
+  async [UserInfoTypeEnum.GET_USER_INFO]({ commit }) {
     const { data } = await getUserInfo()
-    commit(UserTypes.SET_USER_INFO, data.meta)
+    commit(UserInfoTypeEnum.SET_USER_INFO, data.meta)
   },
 }
 

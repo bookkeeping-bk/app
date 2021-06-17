@@ -10,8 +10,9 @@ import {
   RouteRecordRaw,
 } from 'vue-router'
 import store from '@/store'
-import userStore, { UserTypes } from '@/store/modules/user'
+import userStore from '@/store/modules/user'
 import { getAuthToken } from '@/utils/storage'
+import { UserInfoTypeEnum } from '@/enums/app-enum'
 
 const IS_HISTORY = import.meta.env.VITE_ROUTER_HISTORY === 'true'
 
@@ -58,7 +59,7 @@ router.beforeEach((to, from, next) => {
 
   if (getAuthToken()) {
     if (!(userStore.state.userInfo as UserInfo).id) {
-      store.dispatch(UserTypes.GET_USER_INFO)
+      store.dispatch(UserInfoTypeEnum.GET_USER_INFO)
     }
   }
 
