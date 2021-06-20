@@ -4,13 +4,32 @@
  */
 
 import { App } from '@vue/runtime-core'
-import { Button, PullRefresh, List, Empty, Popup, NavBar } from 'vant'
+import {
+  Button,
+  PullRefresh,
+  List,
+  Empty,
+  Popup,
+  NavBar,
+  Form,
+  Field,
+  RadioGroup,
+  Radio,
+  Picker,
+  DatetimePicker,
+} from 'vant'
 
-export default function (app: App) {
+export default function (app: App): void {
   app.use(Button)
   app.use(PullRefresh)
   app.use(List)
   app.use(Empty)
   app.use(Popup)
   app.use(NavBar)
+  app.use(Form)
+  app.use(Field)
+  app.use(RadioGroup)
+  app.use(Radio)
+  app.use(Picker)
+  app.use(DatetimePicker)
 }

@@ -4,7 +4,7 @@
  */
 
 interface UserInfo {
-  id?: number
+  id: number
   avatar?: string
   mobile: string
   username: string

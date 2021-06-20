@@ -43,7 +43,7 @@ interface Bill {
   images: string
   remark: string
   createdAt: string
-  billCategory: BillCategorys
+  billCategory: BillCategory
   paymentSource: PaymentSources
   user: UserInfo
   book: Book
@@ -57,8 +57,53 @@ interface Bill {
 /**
  * 账单数据
  */
-interface BillData extends Pagination {
-  totalPage: number
+interface BillData extends CommonResponseData<Bill[]> {
   monthInfo: MonthBillInfo
-  list: Bill[]
+}
+
+/**
+ * 编辑账单数据
+ */
+interface EditBill {
+  id?: number
+
+  /**
+   * 账单分类ID
+   */
+  billCategoryId: number
+
+  /**
+   * 支付来源ID
+   */
+  paymentSourceId: number
+
+  /**
+   * 记录用户ID
+   */
+  userId: number
+
+  /**
+   * 账本ID
+   */
+  bookId: number
+
+  /**
+   * 记录时间
+   */
+  recordAt: string
+
+  /**
+   * 金额
+   */
+  money: string | number
+
+  /**
+   * 图片
+   */
+  images?: string
+
+  /**
+   * 备注
+   */
+  remark?: string
 }

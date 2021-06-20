@@ -2,11 +2,11 @@
   <ul class="tabbar__wrapper">
     <router-link
       v-for="item in tabbars"
-      :to="item.path"
       :key="item.path"
+      :to="item.path"
       class="tabbar__item"
     >
-      <button v-if="!item.path" class="tabbar__edit">
+      <button v-if="!item.path" class="tabbar__edit" @click="handleEditBill">
         <be-iconfont :icon="item.icon" class="tabbar__edit--icon" />
       </button>
       <template v-else>
@@ -19,8 +19,11 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { useStore } from 'vuex'
 import Iconfont from '@/components/iconfont/index.vue'
+import { BillTypeEnum } from '@/enums/app-enum'
 
+const store = useStore()
 const tabbars = reactive([
   { path: '/bills', icon: '#icon-bill', name: '账单' },
   { path: '/account', icon: '#icon-account', name: '账户' },
@@ -28,6 +31,10 @@ const tabbars = reactive([
   { path: '/stats', icon: '#icon-stats', name: '统计' },
   { path: '/home', icon: '#icon-user', name: '我的' },
 ])
+
+const handleEditBill = () => {
+  store.commit(BillTypeEnum.SWITCH_DIALOG, true)
+}
 </script>
 <script>
 export default {

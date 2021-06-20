@@ -4,6 +4,11 @@
  */
 
 /**
+ * 查询账本列表数据
+ */
+type QueryBook = Pagination
+
+/**
  * 账本数据
  */
 interface Book {

@@ -30,7 +30,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue'
+import { defineComponent, onMounted, reactive, ref, watch } from 'vue'
+import { useStore } from 'vuex'
 import dayjs from 'dayjs'
 import { Toast } from 'vant'
 import { DialogAction } from 'vant/lib/dialog/Dialog'
@@ -40,6 +41,7 @@ import useQuery from '@/hooks/use-query'
 import Header from './components/header.vue'
 import List from './components/list.vue'
 import Details from './components/details.vue'
+import { BillTypeEnum } from '@/enums/app-enum'
 
 export default defineComponent({
   components: {
@@ -49,10 +51,11 @@ export default defineComponent({
   },
 
   setup() {
-    const bills: Bill[] = []
     const queryData = useQuery()
+    const store = useStore()
     const billDetails = ref()
     const monthBillInfo = ref()
+    const bills: Bill[] = []
     const state = reactive({
       bills,
       loading: false,
@@ -105,7 +108,7 @@ export default defineComponent({
       queryData.currentPage = 1
       state.loading = true
       state.finished = false
-      fetchBills()
+      return fetchBills()
     }
 
     /**
@@ -121,7 +124,8 @@ export default defineComponent({
      * 处理编辑账单
      */
     const handleEdit = (bill: Bill) => {
-      console.log(bill)
+      store.commit(BillTypeEnum.SWITCH_DIALOG, true)
+      store.commit(BillTypeEnum.SET_EDIT_BILL, bill)
     }
 
     /**
@@ -150,6 +154,19 @@ export default defineComponent({
         return false
       }
     }
+
+    /**
+     * 监听是否需要重新加载账单数据
+     */
+    watch(
+      () => store.state.bill.reloadBills,
+      async (value: boolean) => {
+        if (value) {
+          await onRefresh()
+          store.commit(BillTypeEnum.RELOAD_BILLS, false)
+        }
+      }
+    )
 
     onMounted(async () => {
       try {

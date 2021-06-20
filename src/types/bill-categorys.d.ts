@@ -4,9 +4,14 @@
  */
 
 /**
+ * 查询账单分类列表数据
+ */
+type QueryBillCategory = Pagination
+
+/**
  * 账单分类列表数据
  */
-interface BillCategorys {
+interface BillCategory {
   id: number
   name: string
 

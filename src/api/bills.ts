@@ -31,6 +31,28 @@ export const getBillDetails = (
 }
 
 /**
+ * 创建账单
+ * @param { Object } params - 提交参数
+ * @returns Promise
+ */
+export const createBill = (
+  params: EditBill
+): Promise<AxiosResponse<AxiosResult>> => {
+  return Axios.post(BILLS_URL, params)
+}
+
+/**
+ * 更新账单
+ * @param { Object } params - 提交参数
+ * @returns Promise
+ */
+export const updateBill = (
+  params: EditBill
+): Promise<AxiosResponse<AxiosResult>> => {
+  return Axios.put(`${BILLS_URL}/${params.id}`, params)
+}
+
+/**
  * 删除账单
  * @param { Number } id - 账单id
  * @return Promise
