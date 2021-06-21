@@ -49,7 +49,7 @@
           />
 
           <van-field
-            v-model="state.selectDate"
+            v-model="state.recordAt"
             readonly
             clickable
             label="记录时间"
@@ -99,6 +99,7 @@
       show-toolbar
       value-key="name"
       item-height="1.17333rem"
+      :default-index="state.pickerDefaultIndex"
       :columns="columns"
       @confirm="onPickerConfirm"
       @cancel="state.showPicker = false"

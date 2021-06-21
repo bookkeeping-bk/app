@@ -3,14 +3,22 @@
  * @Date: 2021-06-18 16:09:16
  */
 
-import { onMounted, ref } from 'vue'
+import { onMounted, Ref, ref } from 'vue'
 import { getBillCategorys } from '@/api/bill-categorys'
 import { getPaymentSources } from '@/api/payment-sources'
 import { getBooks } from '@/api/books'
 import useQuery from '@/hooks/use-query'
-import { EditBillRequest } from '../types'
+import { EditBillRequest, EditBillState } from '../types'
 
-export const useRequest = (): EditBillRequest => {
+type RequestParams = {
+  state: EditBillState
+  formData: Ref<EditBill>
+}
+
+export const useRequest = ({
+  state,
+  formData,
+}: RequestParams): EditBillRequest => {
   const queryData = useQuery()
   const billCategorys = ref<BillCategory[]>([])
   const paymentSources = ref<PaymentSources[]>([])
@@ -42,7 +50,14 @@ export const useRequest = (): EditBillRequest => {
   const fetchBooks = async () => {
     if (books.value.length) return
     const { data } = await getBooks(params)
-    books.value = data.meta.list
+    const { list } = data.meta
+    const { id, name } = list[0]
+
+    books.value = list
+
+    // 设置默认账本
+    state.bookName = name
+    formData.value.bookId = id
   }
 
   onMounted(() => {

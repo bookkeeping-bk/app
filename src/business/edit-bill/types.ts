@@ -70,9 +70,14 @@ export interface EditBillState {
   currentDate: Date
 
   /**
-   * 选择的时间
+   * 选择的账单记录时间
    */
-  selectDate: string
+  recordAt: string
+
+  /**
+   * 选择器默认选中项的索引
+   */
+  pickerDefaultIndex: number | string
 
   /**
    * 是否提交表单
@@ -89,7 +94,6 @@ export interface EditBillStateResult extends EditBillEvent {
   title: ComputedRef<string>
   formData: Ref<EditBill>
   columns: Ref
-  formDataState: EditBill
 }
 
 /**

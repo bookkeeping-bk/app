@@ -3,7 +3,7 @@
  * @Date: 2021-06-19 18:57:13
  */
 
-import { Ref, toRaw } from 'vue'
+import { Ref } from 'vue'
 import { useStore } from 'vuex'
 import { Toast } from 'vant'
 import { useRoute } from 'vue-router'
@@ -22,7 +22,7 @@ type EventParams = {
   columns: Ref
   formData: Ref<EditBill>
   request: EditBillRequest
-  formDataState: EditBill
+  initFormData: EditBill
 }
 
 export const useEvent = ({
@@ -30,7 +30,7 @@ export const useEvent = ({
   columns,
   formData,
   request,
-  formDataState,
+  initFormData,
 }: EventParams): EditBillEvent => {
   const store = useStore()
   const route = useRoute()
@@ -41,7 +41,14 @@ export const useEvent = ({
    */
   const handleClose = () => {
     // 关闭弹窗清除表单数据
-    formData.value = { ...formDataState }
+    formData.value = { ...initFormData }
+    state.type = 1
+    state.billCategoryName = ''
+    state.paymentSourceName = ''
+    state.pickerDefaultIndex = 0
+    state.pickerType = ''
+    state.recordAt = ''
+
     store.commit(BillTypeEnum.SWITCH_DIALOG, false)
   }
 
@@ -68,18 +75,40 @@ export const useEvent = ({
 
     if (type === EditBillPickerType.CATEGORY) {
       if (state.type === 1) {
-        columns.value = billCategorys.value.filter(
-          (item: BillCategory) => item.type === 1
-        )
+        columns.value = billCategorys.value.filter((item, index) => {
+          // 修改账本时处理选择器默认选中项
+          if (formData.value.billCategoryId === item.id) {
+            state.pickerDefaultIndex = index
+          }
+
+          return item.type === 1
+        })
       } else {
-        columns.value = billCategorys.value.filter(
-          (item: BillCategory) => item.type === 2
-        )
+        columns.value = billCategorys.value.filter((item, index) => {
+          // 修改账本时处理选择器默认选中项
+          if (formData.value.billCategoryId === item.id) {
+            state.pickerDefaultIndex = index
+          }
+
+          return item.type === 2
+        })
       }
     } else if (type === EditBillPickerType.PAYMENT_SOURCE) {
       columns.value = paymentSources.value
+      // 修改账本时处理选择器默认选中项
+      paymentSources.value.forEach((item, index) => {
+        if (formData.value.paymentSourceId == item.id) {
+          state.pickerDefaultIndex = index
+        }
+      })
     } else if (type === EditBillPickerType.BOOK) {
       columns.value = books.value
+      // 修改账本时处理选择器默认选中项
+      books.value.forEach((item, index) => {
+        if (formData.value.bookId == item.id) {
+          state.pickerDefaultIndex = index
+        }
+      })
     }
   }
 
@@ -107,8 +136,8 @@ export const useEvent = ({
    */
   const onPickerConfirmDate = (date: string) => {
     state.showPicker = false
-    state.selectDate = lunarCalendar(date)
-    formData.value.recordAt = formatTime(date, 'YYYY-MM-DD')
+    state.recordAt = lunarCalendar(date)
+    formData.value.recordAt = formatTime(date)
   }
 
   /**

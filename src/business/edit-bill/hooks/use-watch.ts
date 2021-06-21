@@ -5,7 +5,7 @@
 
 import { nextTick, Ref, watch } from 'vue'
 import { useStore } from 'vuex'
-import { formatTime, lunarCalendar } from '@/utils/common'
+import { lunarCalendar } from '@/utils/common'
 import { EditBillRequest, EditBillState } from '../types'
 
 type WatchParams = {
@@ -19,7 +19,7 @@ export const useWatch = ({ state, formData, request }: WatchParams): void => {
   const store = useStore()
 
   /**
-   * 监听类型，如果切换则清除数据
+   * 监听账单分类类型，如果切换则清除数据
    */
   watch(
     () => state.type,
@@ -29,31 +29,6 @@ export const useWatch = ({ state, formData, request }: WatchParams): void => {
         formData.value.billCategoryId = 0
       }
     }
-  )
-
-  /**
-   * 设置默认账本
-   */
-  watch(
-    () => books.value,
-    (books) => {
-      const { id, name } = books[0]
-      state.bookName = name
-      formData.value.bookId = id
-    }
-  )
-
-  /**
-   * 监听选择时间，进行初始化，再格式化
-   */
-  watch(
-    () => state.currentDate,
-    () => {
-      state.selectDate = lunarCalendar(Date.now())
-      formData.value.recordAt =
-        formData.value.recordAt || formatTime(Date.now(), 'YYYY-MM-DD')
-    },
-    { immediate: true }
   )
 
   /**
@@ -87,7 +62,7 @@ export const useWatch = ({ state, formData, request }: WatchParams): void => {
           }
         })
 
-        state.selectDate = lunarCalendar(editBill.recordAt)
+        state.recordAt = lunarCalendar(editBill.recordAt)
       }
     }
   )

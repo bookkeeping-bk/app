@@ -5,6 +5,7 @@
 
 import { computed, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
+import { lunarCalendar } from '@/utils/common'
 import { useEvent } from './use-event'
 import { useRequest } from './use-request'
 import { useWatch } from './use-watch'
@@ -14,10 +15,21 @@ export const useState = (): EditBillStateResult => {
   const {
     state: { bill, user },
   } = useStore()
-  const request = useRequest()
-  const show = computed(() => bill.show)
+  const show = computed(() => {
+    if (bill.show) {
+      // 处理选择时间
+      if (formData.value.recordAt) {
+        state.recordAt = lunarCalendar(formData.value.recordAt)
+      } else {
+        state.recordAt = lunarCalendar(Date.now())
+      }
+    }
+    return bill.show
+  })
   const title = computed(() => (formData.value.id ? '修改账单' : '创建账单'))
-  const billState: EditBillState = {
+  const columns = ref()
+
+  const state = reactive<EditBillState>({
     type: 1,
     showPicker: false,
     pickerType: '',
@@ -25,11 +37,12 @@ export const useState = (): EditBillStateResult => {
     paymentSourceName: '',
     bookName: '',
     currentDate: new Date(),
-    selectDate: '',
+    recordAt: '',
+    pickerDefaultIndex: 0,
     isSubLoading: false,
-  }
-  const state = reactive(billState)
-  const formDataState: EditBill = {
+  })
+
+  const initFormData: EditBill = {
     billCategoryId: 0,
     paymentSourceId: 0,
     userId: user.userInfo.id,
@@ -39,18 +52,11 @@ export const useState = (): EditBillStateResult => {
     images: '',
     remark: '',
   }
-  const formData = ref({ ...formDataState })
-  const columns = ref()
-  useWatch({ state, formData, request })
-  const event = useEvent({ state, columns, formData, request, formDataState })
+  const formData = ref(initFormData)
 
-  return {
-    state,
-    show,
-    title,
-    formData,
-    columns,
-    formDataState,
-    ...event,
-  }
+  const request = useRequest({ state, formData })
+  const event = useEvent({ state, columns, formData, request, initFormData })
+  useWatch({ state, formData, request })
+
+  return { state, show, title, formData, columns, ...event }
 }
