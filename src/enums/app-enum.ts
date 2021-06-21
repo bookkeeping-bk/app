@@ -32,5 +32,13 @@ export enum BillTypeEnum {
    */
   RELOAD_BILLS = 'RELOAD_BILLS',
 
+  /**
+   * 重新加载账单详情数据
+   */
+  RELOAD_BILL_DETAILS = 'RELOAD_BILL_DETAILS',
+
+  /**
+   * 设置编辑账单数据
+   */
   SET_EDIT_BILL = 'SET_EDIT_BILL',
 }

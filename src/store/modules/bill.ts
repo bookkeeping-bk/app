@@ -10,6 +10,7 @@ interface BillState {
   show: boolean
   editBill: EditBill
   reloadBills: boolean
+  reloadBillDetails: boolean
 }
 
 const editBill: EditBill = {
@@ -28,6 +29,7 @@ const state: BillState = {
   show: false,
   editBill: { ...editBill },
   reloadBills: false,
+  reloadBillDetails: false,
 }
 
 const mutations: MutationTree<BillState> = {
@@ -54,6 +56,10 @@ const mutations: MutationTree<BillState> = {
 
   [BillTypeEnum.RELOAD_BILLS](state, value: boolean) {
     state.reloadBills = value
+  },
+
+  [BillTypeEnum.RELOAD_BILL_DETAILS](state, value: boolean) {
+    state.reloadBillDetails = value
   },
 }
 

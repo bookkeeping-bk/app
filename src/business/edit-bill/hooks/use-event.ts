@@ -149,6 +149,7 @@ export const useEvent = ({
 
       if (formData.value.id) {
         await updateBill(formData.value)
+        store.commit(BillTypeEnum.RELOAD_BILL_DETAILS, true)
       } else {
         await createBill(formData.value)
       }

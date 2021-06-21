@@ -117,7 +117,7 @@ export default defineComponent({
     const getDetails = (bill: Bill) => {
       const { state } = billDetails.value
       state.show = true
-      state.bill = bill
+      state.billId = bill.id
     }
 
     /**
