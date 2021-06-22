@@ -1,24 +1,19 @@
 <template>
   <be-bill-header :month-bill-info="monthBillInfo" />
 
-  <van-pull-refresh
+  <van-list
     v-if="state.bills.length"
-    v-model="state.refreshing"
-    @refresh="onRefresh"
+    v-model:loading="state.loading"
+    :finished="state.finished"
+    :immediate-check="false"
+    finished-text="没有更多了"
+    @load="onLoad"
   >
-    <van-list
-      v-model:loading="state.loading"
-      :finished="state.finished"
-      :immediate-check="false"
-      finished-text="没有更多了"
-      @load="onLoad"
-    >
-      <be-bill-list :bills="state.bills" @click="getDetails" />
-    </van-list>
-  </van-pull-refresh>
+    <be-bill-list :bills="state.bills" @click="getDetails" />
+  </van-list>
 
   <van-empty
-    v-else-if="state.bills.length || state.finished"
+    v-else-if="!state.bills.length && state.finished"
     description="暂无数据"
   />
 
@@ -67,18 +62,15 @@ export default defineComponent({
      * 获取账单列表
      */
     const fetchBills = async () => {
-      if (state.refreshing) {
-        state.bills = []
-        state.refreshing = false
-      }
       const { data } = await getBills({
         ...queryData,
         book: 1,
         createdAt: dayjs().format('YYYY-MM'),
       })
-      state.loading = false
       const { monthInfo, list } = data.meta
       monthBillInfo.value = monthInfo
+
+      state.loading = false
 
       // 如果没有数据则加载结束
       if (!list.length) {
@@ -95,20 +87,13 @@ export default defineComponent({
       if (queryData.currentPage === 1) {
         state.bills = list
       } else {
-        state.bills = state.bills.concat(list)
+        state.bills = [...state.bills, ...list]
       }
     }
 
     const onLoad = () => {
       queryData.currentPage++
       fetchBills()
-    }
-
-    const onRefresh = () => {
-      queryData.currentPage = 1
-      state.loading = true
-      state.finished = false
-      return fetchBills()
     }
 
     /**
@@ -149,7 +134,7 @@ export default defineComponent({
         await confirmDelete({ beforeClose })
         state.show = false
         Toast('删除成功')
-        onRefresh()
+        fetchBills()
       } catch {
         return false
       }
@@ -162,7 +147,7 @@ export default defineComponent({
       () => store.state.bill.reloadBills,
       async (value: boolean) => {
         if (value) {
-          await onRefresh()
+          await fetchBills()
           store.commit(BillTypeEnum.RELOAD_BILLS, false)
         }
       }
@@ -182,7 +167,6 @@ export default defineComponent({
       monthBillInfo,
       billDetails,
       onLoad,
-      onRefresh,
       getDetails,
       handleEdit,
       handleDelete,
@@ -192,7 +176,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.van-pull-refresh {
+.van-list {
   margin: 20vh 0 $--tabbar-height + 15px;
 }
 .van-empty {
