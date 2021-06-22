@@ -26,10 +26,10 @@ import { BillTypeEnum } from '@/enums/app-enum'
 const store = useStore()
 const tabbars = reactive([
   { path: '/bills', icon: '#icon-bill', name: '账单' },
-  { path: '/account', icon: '#icon-account', name: '账户' },
+  // { path: '/account', icon: '#icon-account', name: '账户' },
   { path: '', icon: '#icon-puls', name: '' },
   { path: '/stats', icon: '#icon-stats', name: '统计' },
-  { path: '/home', icon: '#icon-user', name: '我的' },
+  // { path: '/home', icon: '#icon-user', name: '我的' },
 ])
 
 const handleEditBill = () => {
