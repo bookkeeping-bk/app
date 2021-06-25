@@ -42,13 +42,13 @@ import { defineComponent, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
 import { Toast } from 'vant'
 import { getBillDetails } from '@/api/bills'
-import { formatTime, lunarCalendar } from '@/utils/common'
+import { formatTime, lunarCalendar, toThousands } from '@/utils/common'
 import Iconfont from '@/components/iconfont/index.vue'
 import { BillTypeEnum } from '@/enums/app-enum'
 
 interface BillDetails {
   name: string
-  value: string
+  value: string | number
 }
 
 export default defineComponent({
@@ -85,7 +85,7 @@ export default defineComponent({
             name: '类型',
             value: `${bill.billCategory.name}${billCategoryType}`,
           },
-          { name: '金额', value: bill.money },
+          { name: '金额', value: toThousands(`￥${bill.money}`) },
           { name: '账户', value: bill.paymentSource.name },
           { name: '账本', value: bill.book.name },
           { name: '记录人', value: user },

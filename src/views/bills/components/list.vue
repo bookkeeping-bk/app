@@ -17,7 +17,7 @@
         class="bills__money"
         :class="{ 'bills__money--balance': bill.billCategory.type === 1 }"
       >
-        {{ bill.billCategory.type === 1 ? `+${bill.money}` : `-${bill.money}` }}
+        {{ handleAmount(bill) }}
       </span>
     </li>
   </ul>
@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { lunarCalendar } from '@/utils/common'
+import { lunarCalendar, toThousands } from '@/utils/common'
 
 export default defineComponent({
   name: 'BeBillList',
@@ -33,8 +33,7 @@ export default defineComponent({
   props: {
     bills: {
       type: Object as PropType<Bill>,
-      // eslint-disable-next-line vue/require-valid-default-prop
-      default: () => [],
+      default: () => ({}),
     },
   },
 
@@ -46,7 +45,13 @@ export default defineComponent({
       emit('click', bill)
     }
 
-    return { toLunarCalendar, handleClick }
+    const handleAmount = (bill: Bill) => {
+      return bill.billCategory.type === 1
+        ? `+${toThousands(bill.money)}`
+        : `-${toThousands(bill.money)}`
+    }
+
+    return { toLunarCalendar, handleClick, handleAmount }
   },
 })
 </script>

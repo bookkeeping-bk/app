@@ -16,20 +16,25 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import { formatTime } from '@/utils/common'
+import { formatTime, toThousands } from '@/utils/common'
 
 export default defineComponent({
   name: 'BeBillHeader',
 
-  props: { monthBillInfo: Object as PropType<MonthBillInfo> },
+  props: {
+    monthBillInfo: {
+      type: Object as PropType<MonthBillInfo>,
+      default: () => ({}),
+    },
+  },
 
   setup(props) {
     const formatDate = computed(() => formatTime(Date.now(), 'YYYY年MM月'))
     const details = computed(() => {
       return [
-        { name: '支出', value: props.monthBillInfo?.expend },
-        { name: '收入', value: props.monthBillInfo?.revenue },
-        { name: '结余', value: props.monthBillInfo?.balance },
+        { name: '支出', value: toThousands(props.monthBillInfo.expend) },
+        { name: '收入', value: toThousands(props.monthBillInfo.revenue) },
+        { name: '结余', value: toThousands(props.monthBillInfo.balance) },
       ]
     })
 

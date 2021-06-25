@@ -3,6 +3,7 @@
  * @Date: 2021-06-18 15:47:56
  */
 
+import dayjs from 'dayjs'
 import { computed, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
 import { lunarCalendar } from '@/utils/common'
@@ -22,6 +23,7 @@ export const useState = (): EditBillStateResult => {
         state.recordAt = lunarCalendar(formData.value.recordAt)
       } else {
         state.recordAt = lunarCalendar(Date.now())
+        formData.value.recordAt = dayjs().format('YYYY-MM-DD HH:mm:ss')
       }
     }
     return bill.show
