@@ -13,6 +13,6 @@ import Axios from '@/plugins/axios'
  */
 export const login = (
   params: LoginFormData
-): Promise<AxiosResponse<AxiosResult>> => {
+): Promise<AxiosResponse<AxiosResult<{ token: string }>>> => {
   return Axios.post('/auth/login', params)
 }

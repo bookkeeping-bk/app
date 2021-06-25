@@ -1,5 +1,5 @@
 <template>
-  <div class="bill-header">
+  <header class="bill-header">
     <p class="bill-header__time">{{ formatDate }}</p>
     <ul class="bill-header__detail">
       <li
@@ -11,7 +11,7 @@
         {{ item.name }}
       </li>
     </ul>
-  </div>
+  </header>
 </template>
 
 <script lang="ts">

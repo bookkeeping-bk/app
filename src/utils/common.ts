@@ -14,7 +14,7 @@ import { errorAlert } from './layer'
  * HTTP 异常处理
  * @param { Object } response - 响应数据
  */
-export const httpException = (response: AxiosResponse<AxiosResult>) => {
+export const httpException = (response: AxiosResponse<AxiosResult>): void => {
   const { status, data, config } = response
 
   switch (status) {
@@ -55,7 +55,7 @@ export const httpException = (response: AxiosResponse<AxiosResult>) => {
 export const formatTime = (
   date: string | number,
   format = 'YYYY-MM-DD HH:mm:ss'
-) => {
+): string => {
   return dayjs(date).format(format)
 }
 
@@ -64,8 +64,20 @@ export const formatTime = (
  * @param { String | Number } date - 转换的时间戳或者字符串特殊格式
  * @return { String } 转换后的农历
  */
-export const lunarCalendar = (date: string | number) => {
+export const lunarCalendar = (date: string | number): string => {
   const params = formatTime(date, 'YYYY-MM-DD').split('-')
   const { monthCn, dayCn } = solarlunar.solar2lunar(...params)
   return `${formatTime(date, 'YYYY年MM月DD日')} - 农历${monthCn}${dayCn}`
+}
+
+/**
+ * 给数字添加万位分隔符
+ * @param { String | Number } num - 需要处理的数字
+ * @return { String | Number } 处理好的数字
+ */
+export const toThousands = (num: string | number): string | number => {
+  return (
+    num &&
+    num.toString().replace(/\d+/, (s) => s.replace(/(\d)(?=(\d{4})+$)/g, '$1,'))
+  )
 }
