@@ -45,6 +45,12 @@ const routes: RouteRecordRaw[] = [
         component: () =>
           import(/* webpackChunkName: "bills" */ '@/views/bills/index.vue'),
       },
+      {
+        path: 'stats',
+        meta: { title: setTitle('统计') },
+        component: () =>
+          import(/* webpackChunkName: "stats" */ '@/views/stats/index.vue'),
+      },
     ],
   },
 ]

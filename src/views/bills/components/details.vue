@@ -130,14 +130,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$--background-color: #303030;
 $--footer-height: 40px;
 
 .bill-details {
   padding: 10px;
 
   &__wrapper {
-    background: $--background-color;
+    background: $--background-color-placeholder;
     border-radius: 5px;
     font-size: $--font-size-base;
   }
@@ -163,7 +162,7 @@ $--footer-height: 40px;
   &__footer {
     width: 100%;
     height: $--footer-height;
-    background: $--background-color;
+    background: $--background-color-placeholder;
     position: fixed;
     left: 0;
     bottom: 0;

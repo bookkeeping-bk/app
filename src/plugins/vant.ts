@@ -17,6 +17,9 @@ import {
   Radio,
   Picker,
   DatetimePicker,
+  Tabs,
+  Tab,
+  Icon,
 } from 'vant'
 
 export default function (app: App): void {
@@ -32,4 +35,7 @@ export default function (app: App): void {
   app.use(Radio)
   app.use(Picker)
   app.use(DatetimePicker)
+  app.use(Tabs)
+  app.use(Tab)
+  app.use(Icon)
 }

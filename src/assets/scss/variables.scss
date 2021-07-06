@@ -25,6 +25,7 @@ $--color-info: $--color-text-secondary;
 /* Background
 -------------------------- */
 $--background-color-base: #202020;
+$--background-color-placeholder: #303030;
 
 /* Typography
 -------------------------- */
@@ -55,60 +56,11 @@ $--input-border: $--border-base;
 $--input-border-radius: $--border-radius-small;
 $--input-background-color: transparent;
 $--input-focus-border: $--color-primary;
-// $--input-color-disabled: ;
-// $--input-placeholder-color: $--color-text-placeholder;
-// $--input-focus-border: $--color-primary;
-
-// /* Button
-// -------------------------- */
-// $--button-height: 40px;
-// $--button-font-size: $--font-size-base;
-// $--button-font-weight: $--font-weight-primary;
-// $--button-border-radius: $--border-radius-base;
-// $--button-primary-font-color: $--color-white;
-// // $--button-disabled-font-color: $--color-text-placeholder;
-// // $--button-disabled-background-color: $--color-white;
-// // $--button-disabled-border-color: $--border-color-lighter;
-// $--button-primary-font-color: $--color-white;
-// // $--button-primary-border-color: $--color-primary;
-// $--button-primary-background-color: $--color-primary;
-// $--button-active-background-color: $--color-black;
-
-// /* MessageBox
-// -------------------------- */
-// $--messagebox-title-color: #333;
-// $--messagebox-width: 85%;
-// $--messagebox-font-size: $--font-size-medium;
-// $--messagebox-padding: 30px 10px;
-// $--messagebox-content-color: #999;
-// $--messagebox-border: $--border-width-base $--border-style-base #ddd;
-// $--messagebox-background-color: $--color-white;
-
-// /* Toast
-// -------------------------- */
-// $--toast-color: $--color-white;
-// $--toast-background-color: rgba(0, 0, 0, 0.7);
-// $--toast-padding: 15px;
-// $--toast-font-size: $--font-size-base;
-// $--toast-border-radius: $--border-radius-base;
-
-// /* Loading
-// --------------------------*/
-// // 宽高值
-// $--loading-size: 40px;
-
-// /* Indicator
-// --------------------------*/
-// $--indicator-size: 200px;
-// $--indicator-border-radius: 10px;
-// $--indicator-padding: 40px;
-// $--indicator-color: $--color-white;
-// $--indicator-font-size: $--font-size-base;
 
 /* Tabbar
 --------------------------*/
 $--tabbar-height: 50px;
-$--tabbar-background-color: #303030;
+$--tabbar-background-color: $--background-color-placeholder;
 $--tabbar-active-color: $--color-primary;
 $--tabbar-font-size: $--font-size-small;
 $--tabbar-font-weight: $--font-weight-primary;
