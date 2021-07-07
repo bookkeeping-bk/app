@@ -12,7 +12,10 @@ import { Dialog, DialogOptions } from 'vant'
  * @param { Object } [options] - Dialog 参数
  * @return Promise
  */
-export const errorAlert = (message: string, options?: DialogOptions) => {
+export const errorAlert = (
+  message: string,
+  options?: DialogOptions
+): Promise<unknown> => {
   return Dialog.alert({ title: '错误提示', message, ...options })
 }
 
@@ -21,7 +24,7 @@ export const errorAlert = (message: string, options?: DialogOptions) => {
  * @param { Object } [options] - Dialog 参数
  * @return Promise
  */
-export const confirmDelete = (options?: DialogOptions) => {
+export const confirmDelete = (options?: DialogOptions): Promise<unknown> => {
   return Dialog.confirm({
     title: '温馨提示',
     message: '此操作将永久删除该数据, 是否继续？',

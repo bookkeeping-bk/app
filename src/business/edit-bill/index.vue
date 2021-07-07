@@ -108,7 +108,6 @@
       v-show="state.pickerType == 'recordAt'"
       v-model="state.currentDate"
       type="date"
-      title="选择时间"
       item-height="1.17333rem"
       :formatter="formatter"
       @confirm="onPickerConfirmDate"

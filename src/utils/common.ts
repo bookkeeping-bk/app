@@ -81,3 +81,19 @@ export const toThousands = (num: string | number): string | number => {
     num.toString().replace(/\d+/, (s) => s.replace(/(\d)(?=(\d{4})+$)/g, '$1,'))
   )
 }
+
+/**
+ * 获取每年/月的第一天和最后一天
+ * @param { String | Number } date - 指定时间
+ * @param { String } unitType - 时间单位
+ * @return { Object } - 处理好的时间
+ */
+export const getFirstAndLastDay = (
+  date: string | number,
+  unitType: dayjs.OpUnitType
+): { firstDay: string; lastDay: string } => {
+  const format = 'YYYY-MM-DD'
+  const firstDay = dayjs(date).startOf(unitType).format(format)
+  const lastDay = dayjs(date).endOf(unitType).format(format)
+  return { firstDay, lastDay }
+}
