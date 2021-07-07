@@ -29,6 +29,7 @@ import { computed, defineComponent, onMounted, reactive, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import dayjs from 'dayjs'
 import { Toast } from 'vant'
+import { useChildren } from '@vant/use'
 import { DialogAction } from 'vant/lib/dialog/Dialog'
 import { deleteBill, getBills } from '@/api/bills'
 import { confirmDelete } from '@/utils/layer'
@@ -46,6 +47,7 @@ export default defineComponent({
   },
 
   setup() {
+    const { linkChildren } = useChildren('bills')
     const queryData = useQuery()
     const store = useStore()
     const billDetails = ref()
@@ -58,6 +60,7 @@ export default defineComponent({
       refreshing: false,
       totalPage: 0,
     })
+    const createdAt = ref(dayjs().format('YYYY-MM'))
 
     const finishedText = computed(() => {
       return queryData.pageSize >= state.totalPage ? '' : '没有更多了'
@@ -70,7 +73,7 @@ export default defineComponent({
       const { data } = await getBills({
         ...queryData,
         book: 1,
-        createdAt: dayjs().format('YYYY-MM'),
+        createdAt: createdAt.value,
       })
       const { monthInfo, list, totalPage } = data.meta
       monthBillInfo.value = monthInfo
@@ -100,6 +103,15 @@ export default defineComponent({
     const onLoad = () => {
       queryData.currentPage++
       fetchBills()
+    }
+
+    const initBills = async () => {
+      try {
+        Toast.loading({ message: '加载中...', forbidClick: true, duration: 0 })
+        await fetchBills()
+      } finally {
+        Toast.clear()
+      }
     }
 
     /**
@@ -159,14 +171,11 @@ export default defineComponent({
       }
     )
 
-    onMounted(async () => {
-      try {
-        Toast.loading({ message: '加载中...', forbidClick: true, duration: 0 })
-        await fetchBills()
-      } finally {
-        Toast.clear()
-      }
+    onMounted(() => {
+      initBills()
     })
+
+    linkChildren({ createdAt, initBills })
 
     return {
       state,
