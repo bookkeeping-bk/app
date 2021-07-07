@@ -6,7 +6,7 @@
     v-model:loading="state.loading"
     :finished="state.finished"
     :immediate-check="false"
-    finished-text="没有更多了"
+    :finished-text="finishedText"
     @load="onLoad"
   >
     <be-bill-list :bills="state.bills" @click="getDetails" />
@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, watch } from 'vue'
+import { computed, defineComponent, onMounted, reactive, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import dayjs from 'dayjs'
 import { Toast } from 'vant'
@@ -56,6 +56,11 @@ export default defineComponent({
       loading: false,
       finished: false,
       refreshing: false,
+      totalPage: 0,
+    })
+
+    const finishedText = computed(() => {
+      return queryData.pageSize >= state.totalPage ? '' : '没有更多了'
     })
 
     /**
@@ -67,8 +72,9 @@ export default defineComponent({
         book: 1,
         createdAt: dayjs().format('YYYY-MM'),
       })
-      const { monthInfo, list } = data.meta
+      const { monthInfo, list, totalPage } = data.meta
       monthBillInfo.value = monthInfo
+      state.totalPage = totalPage
 
       state.loading = false
 
@@ -166,6 +172,7 @@ export default defineComponent({
       state,
       monthBillInfo,
       billDetails,
+      finishedText,
       onLoad,
       getDetails,
       handleEdit,
