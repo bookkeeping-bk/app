@@ -31,10 +31,7 @@ export default defineComponent({
   name: 'BeBillList',
 
   props: {
-    bills: {
-      type: Object as PropType<Bill>,
-      default: () => ({}),
-    },
+    bills: { type: Array as PropType<Bill[]>, default: () => [] },
   },
 
   emits: ['click'],
