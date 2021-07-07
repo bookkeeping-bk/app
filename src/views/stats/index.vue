@@ -1,5 +1,5 @@
 <template>
-  <be-stats-header :reports="reports" />
+  <be-stats-header />
   <main class="stats">
     <be-card title="收入分类">
       <be-stats-pie chart-id="revenue" />
@@ -42,7 +42,7 @@ export default defineComponent({
       Toast.clear()
     }
 
-    linkChildren({ queryParams, fetchStatsReport })
+    linkChildren({ queryParams, reports, fetchStatsReport })
 
     onMounted(() => {
       fetchStatsReport()

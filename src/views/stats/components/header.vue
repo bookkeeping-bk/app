@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, provide, reactive } from 'vue'
+import { computed, defineComponent, provide, reactive } from 'vue'
 import { useParent } from '@vant/use'
 import { formatTime, toThousands, getFirstAndLastDay } from '@/utils/common'
 import Picker from './picker.vue'
@@ -46,12 +46,7 @@ export default defineComponent({
     [Picker.name]: Picker,
   },
 
-  props: {
-    // eslint-disable-next-line vue/require-valid-default-prop
-    reports: { type: Array as PropType<Bill[]>, default: () => [] },
-  },
-
-  setup(props) {
+  setup() {
     const { parent } = useParent('stats-relation')
     const state = reactive({
       tabActiveIndex: 0,
@@ -83,7 +78,7 @@ export default defineComponent({
       let expend = 0
       let revenue = 0
 
-      props.reports.forEach((item: Bill) => {
+      parent.reports.value.forEach((item: Bill) => {
         if (item.billCategory.type === 1) {
           expend += parseFloat(item.money)
         } else {
