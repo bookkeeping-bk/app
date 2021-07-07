@@ -1,11 +1,15 @@
 <template>
   <div class="pie-chart">
-    <canvas :id="chartId"></canvas>
+    <canvas
+      v-if="chartData.expend.length || chartData.revenue.length"
+      :id="chartId"
+    ></canvas>
+    <van-empty v-else description="暂无数据" />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, watch } from 'vue'
+import { computed, defineComponent, nextTick, watch } from 'vue'
 import { useParent } from '@vant/use'
 import F2 from '@antv/f2/lib/index-all'
 import { toThousands } from '@/utils/common'
@@ -51,39 +55,44 @@ export default defineComponent({
 
     const initChart = () => {
       const data = chartData.value[props.chartId]
+      if (!data.length) return
 
-      const chart = new F2.Chart({
-        id: props.chartId,
-        pixelRatio: window.devicePixelRatio,
+      nextTick(() => {
+        const chart = new F2.Chart({
+          id: props.chartId,
+          pixelRatio: window.devicePixelRatio,
+        })
+
+        chart.source(data)
+        chart.coord('polar', { transposed: true, radius: 0.75 })
+        chart.axis(false)
+        chart.legend(false)
+        chart.tooltip(false)
+
+        chart.interval().position('const*money').adjust('stack').color('id')
+        chart.pieLabel({
+          activeShape: true,
+          lineHeight: 62,
+          label1(data) {
+            return {
+              text: '￥' + toThousands(data.money.toFixed(2)),
+              fill: '#999',
+              fontSize: window.devicePixelRatio * 10,
+            }
+          },
+          label2(data: Bill) {
+            return {
+              text: data.billCategory.name,
+              fill: '#999',
+              fontSize: window.devicePixelRatio * 10,
+            }
+          },
+        })
+        chart.render()
       })
-
-      chart.source(data)
-      chart.coord('polar', { transposed: true, radius: 0.75 })
-      chart.axis(false)
-      chart.legend(false)
-      chart.tooltip(false)
-
-      chart.interval().position('const*money').adjust('stack').color('id')
-      chart.pieLabel({
-        activeShape: true,
-        lineHeight: 62,
-        label1(data) {
-          return {
-            text: '￥' + toThousands(data.money.toFixed(2)),
-            fill: '#999',
-            fontSize: window.devicePixelRatio * 10,
-          }
-        },
-        label2(data: Bill) {
-          return {
-            text: data.billCategory.name,
-            fill: '#999',
-            fontSize: window.devicePixelRatio * 10,
-          }
-        },
-      })
-      chart.render()
     }
+
+    return { chartData }
   },
 })
 </script>
