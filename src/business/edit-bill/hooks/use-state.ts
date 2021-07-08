@@ -56,7 +56,7 @@ export const useState = (): EditBillStateResult => {
   }
   const formData = ref(initFormData)
 
-  const request = useRequest({ state, formData })
+  const request = useRequest({ state, show, formData })
   const event = useEvent({ state, columns, formData, request, initFormData })
   useWatch({ state, formData, request })
 

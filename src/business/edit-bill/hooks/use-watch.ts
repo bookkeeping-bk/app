@@ -34,36 +34,33 @@ export const useWatch = ({ state, formData, request }: WatchParams): void => {
   /**
    * 监听是否修改账单
    */
-  watch(
-    () => store.state.bill.editBill.id,
-    (val) => {
-      if (val) {
-        const editBill: EditBill = store.state.bill.editBill
-        formData.value = { ...editBill }
+  watch([request.books, () => store.state.bill.editBill.id], (values) => {
+    if ((values[0].length, values[1])) {
+      const editBill: EditBill = store.state.bill.editBill
+      formData.value = { ...editBill }
 
-        billCategorys.value.forEach((item) => {
-          if (item.id === editBill.billCategoryId) {
-            state.type = item.type
-            nextTick(() => {
-              state.billCategoryName = item.name
-            })
-          }
-        })
+      billCategorys.value.forEach((item) => {
+        if (item.id === editBill.billCategoryId) {
+          state.type = item.type
+          nextTick(() => {
+            state.billCategoryName = item.name
+          })
+        }
+      })
 
-        paymentSources.value.forEach((item) => {
-          if (item.id === editBill.paymentSourceId) {
-            state.paymentSourceName = item.name
-          }
-        })
+      paymentSources.value.forEach((item) => {
+        if (item.id === editBill.paymentSourceId) {
+          state.paymentSourceName = item.name
+        }
+      })
 
-        books.value.forEach((item) => {
-          if (item.id === editBill.bookId) {
-            state.bookName = item.name
-          }
-        })
+      books.value.forEach((item) => {
+        if (item.id === editBill.bookId) {
+          state.bookName = item.name
+        }
+      })
 
-        state.recordAt = lunarCalendar(editBill.recordAt)
-      }
+      state.recordAt = lunarCalendar(editBill.recordAt)
     }
-  )
+  })
 }

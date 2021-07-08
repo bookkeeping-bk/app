@@ -3,7 +3,7 @@
  * @Date: 2021-06-18 16:09:16
  */
 
-import { onMounted, Ref, ref } from 'vue'
+import { ComputedRef, Ref, ref, watch } from 'vue'
 import { getBillCategorys } from '@/api/bill-categorys'
 import { getPaymentSources } from '@/api/payment-sources'
 import { getBooks } from '@/api/books'
@@ -13,11 +13,13 @@ import { EditBillRequest, EditBillState } from '../types'
 type RequestParams = {
   state: EditBillState
   formData: Ref<EditBill>
+  show: ComputedRef<boolean>
 }
 
 export const useRequest = ({
   state,
   formData,
+  show,
 }: RequestParams): EditBillRequest => {
   const queryData = useQuery()
   const billCategorys = ref<BillCategory[]>([])
@@ -60,10 +62,12 @@ export const useRequest = ({
     formData.value.bookId = id
   }
 
-  onMounted(() => {
-    fetchBillCategorys()
-    fetchPaymentSources()
-    fetchBooks()
+  watch(show, (val) => {
+    if (val) {
+      fetchBillCategorys()
+      fetchPaymentSources()
+      fetchBooks()
+    }
   })
 
   return { billCategorys, paymentSources, books }

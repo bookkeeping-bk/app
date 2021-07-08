@@ -130,7 +130,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$--footer-height: 40px;
+$--footer-height: 50px;
 
 .bill-details {
   padding: 10px;

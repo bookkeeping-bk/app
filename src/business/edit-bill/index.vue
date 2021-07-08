@@ -8,8 +8,8 @@
     />
 
     <main class="bill-edit">
-      <div class="bill-edit-details">
-        <van-form @submit="onSubmit">
+      <van-form @submit="onSubmit">
+        <div class="bill-edit-details">
           <van-field name="radio" label="分类">
             <template #input>
               <van-radio-group v-model="state.type" direction="horizontal">
@@ -75,21 +75,21 @@
             label="备注"
             placeholder="请输入备注信息"
           />
+        </div>
 
-          <div style="margin-top: 40px">
-            <van-button
-              block
-              type="primary"
-              native-type="submit"
-              loading-size="40px"
-              loading-text="加载中..."
-              :loading="state.isSubLoading"
-            >
-              {{ title }}
-            </van-button>
-          </div>
-        </van-form>
-      </div>
+        <div style="margin-top: 40px">
+          <van-button
+            block
+            type="primary"
+            native-type="submit"
+            loading-size="40px"
+            loading-text="加载中..."
+            :loading="state.isSubLoading"
+          >
+            {{ title }}
+          </van-button>
+        </div>
+      </van-form>
     </main>
   </van-popup>
 
