@@ -54,8 +54,8 @@ export default defineComponent({
 
     const details = computed(() => {
       return [
-        { name: '支出', value: toThousands(props.monthBillInfo.expend) },
         { name: '收入', value: toThousands(props.monthBillInfo.revenue) },
+        { name: '支出', value: toThousands(props.monthBillInfo.expend) },
         { name: '结余', value: toThousands(props.monthBillInfo.balance) },
       ]
     })

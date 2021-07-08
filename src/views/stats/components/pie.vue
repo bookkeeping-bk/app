@@ -29,13 +29,13 @@ export default defineComponent({
       const revenue = []
       parent.reports.value.forEach((item: Bill) => {
         if (item.billCategory.type === 1) {
-          expend.push({
+          revenue.push({
             ...item,
             const: 'const',
             money: parseFloat(item.money),
           })
         } else {
-          revenue.push({
+          expend.push({
             ...item,
             const: 'const',
             money: parseFloat(item.money),
@@ -43,15 +43,12 @@ export default defineComponent({
         }
       })
 
-      return { expend, revenue }
+      return { revenue, expend }
     })
 
-    watch(
-      () => chartData.value,
-      () => {
-        initChart()
-      }
-    )
+    watch(chartData, () => {
+      initChart()
+    })
 
     const initChart = () => {
       const data = chartData.value[props.chartId]

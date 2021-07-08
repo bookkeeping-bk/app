@@ -80,15 +80,15 @@ export default defineComponent({
 
       parent.reports.value.forEach((item: Bill) => {
         if (item.billCategory.type === 1) {
-          expend += parseFloat(item.money)
-        } else {
           revenue += parseFloat(item.money)
+        } else {
+          expend += parseFloat(item.money)
         }
       })
-      const balance = expend - revenue
+      const balance = revenue - expend
       return [
-        { name: '收', amount: toThousands(`￥${expend.toFixed(2)}`) },
-        { name: '支', amount: toThousands(`￥${revenue.toFixed(2)}`) },
+        { name: '收', amount: toThousands(`￥${revenue.toFixed(2)}`) },
+        { name: '支', amount: toThousands(`￥${expend.toFixed(2)}`) },
         { name: '结', amount: toThousands(`￥${balance.toFixed(2)}`) },
       ]
     })
