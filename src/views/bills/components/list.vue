@@ -6,7 +6,11 @@
       class="bills__item"
       @click.stop="handleClick(bill)"
     >
-      <i class="bills__icon">{{ bill.billCategory.name.substr(0, 1) }}</i>
+      <i
+        class="bills__icon"
+        :class="{ 'bills__icon--expend': bill.billCategory.type === 2 }"
+        >{{ bill.billCategory.name.substr(0, 1) }}</i
+      >
 
       <div class="bills__info">
         <p class="bills__name">{{ bill.billCategory.name }}</p>
@@ -75,12 +79,16 @@ export default defineComponent({
     display: inline-block;
     line-height: 25px;
     text-align: center;
-    background: $--color-primary;
+    background: $--color-secondary;
     border-radius: 50%;
     color: $--color-white;
     margin-right: 5px;
     font-style: normal;
     font-weight: $--font-weight-primary;
+
+    &--expend {
+      background: $--color-primary;
+    }
   }
 
   &__info {
