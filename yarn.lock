@@ -714,10 +714,10 @@ csstype@^2.6.8:
   resolved "https://registry.nlark.com/csstype/download/csstype-2.6.17.tgz?cache=0&sync_timestamp=1618818427821&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcsstype%2Fdownload%2Fcsstype-2.6.17.tgz#4cf30eb87e1d1a005d8b6510f95292413f6a1c0e"
   integrity sha1-TPMOuH4dGgBdi2UQ+VKSQT9qHA4=
 
-dayjs@^1.10.5:
-  version "1.10.5"
-  resolved "https://registry.nlark.com/dayjs/download/dayjs-1.10.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdayjs%2Fdownload%2Fdayjs-1.10.5.tgz#5600df4548fc2453b3f163ebb2abbe965ccfb986"
-  integrity sha1-VgDfRUj8JFOz8WPrsqu+llzPuYY=
+dayjs@^1.10.6:
+  version "1.10.6"
+  resolved "https://registry.nlark.com/dayjs/download/dayjs-1.10.6.tgz#288b2aa82f2d8418a6c9d4df5898c0737ad02a63"
+  integrity sha1-KIsqqC8thBimydTfWJjAc3rQKmM=
 
 debug@^3.2.6:
   version "3.2.7"
@@ -2184,10 +2184,10 @@ v8-compile-cache@^2.0.3:
   resolved "https://registry.nlark.com/v8-compile-cache/download/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
   integrity sha1-LeGWGMZtwkfc+2+ZM4A12CRaLO4=
 
-vant@^3.0.18:
-  version "3.0.18"
-  resolved "https://registry.nlark.com/vant/download/vant-3.0.18.tgz?cache=0&sync_timestamp=1622701359978&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvant%2Fdownload%2Fvant-3.0.18.tgz#5fbce67b22d86455a9dffb9dc66af8e43170d818"
-  integrity sha1-X7zmeyLYZFWp3/udxmr45DFw2Bg=
+vant@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.nlark.com/vant/download/vant-3.1.2.tgz?cache=0&sync_timestamp=1625536908711&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvant%2Fdownload%2Fvant-3.1.2.tgz#8777290f38c4b042d22612343e72dcab95b044ed"
+  integrity sha1-h3cpDzjEsELSJhI0PnLcq5WwRO0=
   dependencies:
     "@vant/icons" "^1.6.0"
     "@vant/lazyload" "^1.2.0"
