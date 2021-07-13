@@ -4,6 +4,7 @@
  */
 
 import { ComputedRef, Ref } from 'vue'
+import { UploaderFileListItem } from 'vant'
 
 /**
  * 选择器的类型
@@ -83,6 +84,12 @@ export interface EditBillState {
    * 是否提交表单
    */
   isSubLoading: boolean
+
+  /**
+   * 上传图片
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fileList: any[]
 }
 
 /**
@@ -105,6 +112,7 @@ export interface EditBillEvent {
   openShowPicker: (type: string) => void
   onPickerConfirm: (item: { id: number; name: string }) => void
   onPickerConfirmDate: (date: string) => void
+  handleAfterRead: (files: UploaderFileListItem) => void
   onSubmit: () => void
 }
 

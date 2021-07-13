@@ -40,7 +40,7 @@ interface MonthBillInfo {
 interface Bill {
   id: number
   money: string
-  images: string
+  images: any[]
   remark: string
   createdAt: string
   billCategory: BillCategory
@@ -100,7 +100,7 @@ interface EditBill {
   /**
    * 图片
    */
-  images?: string
+  images?: any
 
   /**
    * 备注

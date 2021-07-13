@@ -65,8 +65,14 @@
             :rules="[{ required: true, message: '请输入金额' }]"
           />
 
-          <van-field name="uploader" label="图片">
-            <template #input> </template>
+          <van-field label="图片">
+            <template #input>
+              <van-uploader
+                v-model="state.fileList"
+                multiple
+                :after-read="handleAfterRead"
+              />
+            </template>
           </van-field>
 
           <van-field
@@ -136,6 +142,7 @@ export default defineComponent({
       onPickerConfirm,
       onPickerConfirmDate,
       formatter,
+      handleAfterRead,
     } = useState()
 
     return {
@@ -150,6 +157,7 @@ export default defineComponent({
       onPickerConfirm,
       onPickerConfirmDate,
       formatter,
+      handleAfterRead,
     }
   },
 })

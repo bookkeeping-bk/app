@@ -18,8 +18,19 @@
           :key="bill.name"
           class="bill-details__item"
         >
-          <span class="bill-details__desc">{{ bill.name }}</span>
-          {{ bill.value }}
+          <template v-if="bill.name === '图片'">
+            <span class="bill-details__desc">{{ bill.name }}</span>
+            <van-uploader
+              v-show="Array.isArray(bill.value) && bill.value.length"
+              v-model="bill.value"
+              :show-upload="false"
+              :deletable="false"
+            />
+          </template>
+          <template v-else>
+            <span class="bill-details__desc">{{ bill.name }}</span>
+            {{ bill.value }}
+          </template>
         </li>
       </ul>
     </main>
@@ -48,7 +59,7 @@ import { BillTypeEnum } from '@/enums/app-enum'
 
 interface BillDetails {
   name: string
-  value: string | number
+  value: string | number | any[]
 }
 
 export default defineComponent({
@@ -78,6 +89,7 @@ export default defineComponent({
 
         const billCategoryType = bill.billCategory.type === 1 ? '收入' : '支出'
         const user = `${bill.user.username} - ${bill.user.mobile}`
+        const images = bill.images.map((item) => ({ url: item }))
 
         state.bill = bill
         state.billDetails = [
@@ -91,8 +103,8 @@ export default defineComponent({
           { name: '记录人', value: user },
           { name: '记录时间', value: lunarCalendar(bill.recordAt) },
           { name: '创建时间', value: formatTime(bill.createdAt) },
-          { name: '图片', value: bill.images },
           { name: '备注', value: bill.remark },
+          { name: '图片', value: images },
         ]
       } finally {
         Toast.clear()
@@ -146,7 +158,8 @@ $--footer-height: 50px;
     justify-content: space-between;
     padding: 10px;
 
-    &:last-child {
+    &:last-child,
+    &:nth-last-child(2) {
       flex-direction: column;
 
       .bill-details__desc {

@@ -38,6 +38,7 @@ export const useWatch = ({ state, formData, request }: WatchParams): void => {
     if ((values[0].length, values[1])) {
       const editBill: EditBill = store.state.bill.editBill
       formData.value = { ...editBill }
+      state.fileList = editBill.images.map((item: string) => ({ url: item }))
 
       billCategorys.value.forEach((item) => {
         if (item.id === editBill.billCategoryId) {

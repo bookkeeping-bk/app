@@ -42,19 +42,20 @@ export const useState = (): EditBillStateResult => {
     recordAt: '',
     pickerDefaultIndex: 0,
     isSubLoading: false,
+    fileList: [],
   })
 
   const initFormData: EditBill = {
     billCategoryId: 0,
     paymentSourceId: 0,
     userId: user.userInfo.id,
-    bookId: 0,
+    bookId: 1,
     recordAt: '',
     money: '',
-    images: '',
+    images: [],
     remark: '',
   }
-  const formData = ref(initFormData)
+  const formData = ref({ ...initFormData })
 
   const request = useRequest({ state, show, formData })
   const event = useEvent({ state, columns, formData, request, initFormData })

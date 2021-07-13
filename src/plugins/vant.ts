@@ -20,6 +20,7 @@ import {
   Tabs,
   Tab,
   Icon,
+  Uploader,
 } from 'vant'
 
 export default function (app: App): void {
@@ -38,4 +39,5 @@ export default function (app: App): void {
   app.use(Tabs)
   app.use(Tab)
   app.use(Icon)
+  app.use(Uploader)
 }

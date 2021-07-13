@@ -5,11 +5,12 @@
 
 import { Ref } from 'vue'
 import { useStore } from 'vuex'
-import { Toast } from 'vant'
+import { Toast, UploaderFileListItem } from 'vant'
 import { useRoute } from 'vue-router'
 import { BillTypeEnum } from '@/enums/app-enum'
 import { formatTime, lunarCalendar } from '@/utils/common'
 import { createBill, updateBill } from '@/api/bills'
+import { uploadFile } from '@/api/file'
 import {
   EditBillEvent,
   EditBillPickerType,
@@ -48,6 +49,7 @@ export const useEvent = ({
     state.pickerDefaultIndex = 0
     state.pickerType = ''
     state.recordAt = ''
+    state.fileList = []
 
     store.commit(BillTypeEnum.SWITCH_DIALOG, false)
   }
@@ -141,11 +143,47 @@ export const useEvent = ({
   }
 
   /**
+   * 处理上传文件
+   * @param { Object | Array } files - 文件信息
+   */
+  const handleAfterRead = async (files: UploaderFileListItem) => {
+    const createFormData = new FormData()
+
+    // 处理多文件上传状态
+    if (Array.isArray(files)) {
+      files.forEach((file: UploaderFileListItem) => {
+        file.status = 'uploading'
+        file.message = '上传中...'
+        createFormData.append('file', file.file as File)
+      })
+    } else {
+      files.status = 'uploading'
+      files.message = '上传中...'
+      createFormData.append('file', files.file as File)
+    }
+
+    try {
+      const { data } = await uploadFile(createFormData)
+      if (Array.isArray(files)) {
+        files.forEach((file: UploaderFileListItem) => {
+          file.status = 'done'
+        })
+      } else {
+        files.status = 'done'
+      }
+      state.fileList = data.meta.map((item) => ({ url: item }))
+    } finally {
+      createFormData.delete('file')
+    }
+  }
+
+  /**
    * 处理提交表单数据
    */
   const onSubmit = async () => {
     try {
       state.isSubLoading = true
+      formData.value.images = state.fileList.map((item) => item.url)
 
       if (formData.value.id) {
         await updateBill(formData.value)
@@ -171,6 +209,7 @@ export const useEvent = ({
     openShowPicker,
     onPickerConfirm,
     onPickerConfirmDate,
+    handleAfterRead,
     onSubmit,
   }
 }
