@@ -60,6 +60,6 @@ canvas {
 }
 .stats {
   padding: 10px;
-  margin: 24vh 0 $--tabbar-height;
+  margin: 20vh 0 $--tabbar-height;
 }
 </style>
