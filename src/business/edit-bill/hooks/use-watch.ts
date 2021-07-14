@@ -23,9 +23,9 @@ export const useWatch = ({ state, formData, request }: WatchParams): void => {
    */
   watch(
     () => state.type,
-    (val) => {
-      if (val) {
-        state.billCategoryName = ''
+    () => {
+      state.billCategoryName = ''
+      if (!store.state.bill.editBill.id) {
         formData.value.billCategoryId = 0
       }
     }
@@ -35,7 +35,7 @@ export const useWatch = ({ state, formData, request }: WatchParams): void => {
    * 监听是否修改账单
    */
   watch([request.books, () => store.state.bill.editBill.id], (values) => {
-    if ((values[0].length, values[1])) {
+    if (values[0].length && values[1]) {
       const editBill: EditBill = store.state.bill.editBill
       formData.value = { ...editBill }
       state.fileList = editBill.images.map((item: string) => ({ url: item }))
