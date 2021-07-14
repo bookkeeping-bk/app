@@ -27,18 +27,18 @@ export default defineComponent({
     const chartData = computed(() => {
       const expend = []
       const revenue = []
-      parent.reports.value.forEach((item: Bill) => {
-        if (item.billCategory.type === 1) {
+      parent.reports.value.forEach((item: ReportStats) => {
+        if (item.billCategoryType === 1) {
           revenue.push({
             ...item,
             const: 'const',
-            money: parseFloat(item.money),
+            money: parseFloat(item.billCategoryMoney),
           })
         } else {
           expend.push({
             ...item,
             const: 'const',
-            money: parseFloat(item.money),
+            money: parseFloat(item.billCategoryMoney),
           })
         }
       })
@@ -52,6 +52,7 @@ export default defineComponent({
 
     const initChart = () => {
       const data = chartData.value[props.chartId]
+
       if (!data.length) return
 
       nextTick(() => {
@@ -66,25 +67,40 @@ export default defineComponent({
         chart.legend(false)
         chart.tooltip(false)
 
-        chart.interval().position('const*money').adjust('stack').color('id')
+        chart
+          .interval()
+          .position('const*money')
+          .adjust('stack')
+          .color('billCategoryName', [
+            '#1890FF',
+            '#13C2C2',
+            '#2FC25B',
+            '#FACC14',
+            '#f57403',
+            '#F04864',
+            '#8543E0',
+          ])
+          .animate({ appear: { duration: 1200, easing: 'bounceOut' } })
+
         chart.pieLabel({
           activeShape: true,
           lineHeight: 62,
-          label1(data) {
+          label1(data: ReportStats) {
             return {
-              text: '￥' + toThousands(data.money.toFixed(2)),
+              text: '￥' + toThousands(data.billCategoryMoney),
               fill: '#999',
               fontSize: window.devicePixelRatio * 10,
             }
           },
-          label2(data: Bill) {
+          label2(data: ReportStats) {
             return {
-              text: data.billCategory.name,
+              text: data.billCategoryName,
               fill: '#999',
               fontSize: window.devicePixelRatio * 10,
             }
           },
         })
+
         chart.render()
       })
     }

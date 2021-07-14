@@ -10,3 +10,13 @@ interface QueryStatsReport {
   begin: string
   end: string
 }
+
+/**
+ * 账单统计报表数据
+ */
+interface ReportStats {
+  billCategoryMoney: string
+  billCategoryName: string
+  billCategoryType: number
+  bills: Bill[]
+}
