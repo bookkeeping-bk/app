@@ -12,7 +12,7 @@
           <em class="header__details--font" :style="{ background: item.color }">
             {{ item.name }}
           </em>
-          {{ item.amount }}
+          <be-countup :content="item.amount" />
         </li>
       </ul>
     </main>
@@ -20,14 +20,18 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from '@vue/runtime-core'
-import { toThousands } from '@/utils/common'
+import { computed, defineComponent, PropType } from 'vue'
+import Countup from '../countup/index.vue'
 
 export default defineComponent({
   name: 'BeHeader',
 
+  components: {
+    [Countup.name]: Countup,
+  },
+
   props: {
-    bills: { type: Array as PropType<Bill[]>, default: () => [] },
+    bills: { type: Array as PropType<ReportStats[]>, default: () => [] },
     monthBillInfo: {
       type: Object as PropType<MonthBillInfo>,
       default: () => ({}),
@@ -40,22 +44,22 @@ export default defineComponent({
       let revenue = 0
 
       props.bills.forEach((bill) => {
-        if (bill.billCategory.type === 1) {
-          revenue += parseFloat(bill.money)
+        if (bill.billCategoryType === 1) {
+          revenue += parseFloat(bill.billCategoryMoney)
         } else {
-          expend += parseFloat(bill.money)
+          expend += parseFloat(bill.billCategoryMoney)
         }
       })
 
       const revenueAmount = props.monthBillInfo.revenue
-        ? toThousands(`￥${props.monthBillInfo.revenue}`)
-        : toThousands(`￥${revenue.toFixed(2)}`)
+        ? parseFloat(props.monthBillInfo.revenue)
+        : revenue
       const expendAmount = props.monthBillInfo.expend
-        ? toThousands(`￥${props.monthBillInfo.expend}`)
-        : toThousands(`￥${expend.toFixed(2)}`)
+        ? parseFloat(props.monthBillInfo.expend)
+        : expend
       const balanceAmount = props.monthBillInfo.balance
-        ? toThousands(`￥${props.monthBillInfo.balance}`)
-        : toThousands(`￥${(revenue - expend).toFixed(2)}`)
+        ? parseFloat(props.monthBillInfo.balance)
+        : revenue - expend
 
       return [
         { name: '收', color: '#f57403', amount: revenueAmount },
