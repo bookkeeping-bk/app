@@ -63,7 +63,7 @@ export default defineComponent({
 
     return {
       state,
-      minDate: new Date(2021, 6, 1),
+      minDate: new Date(2021, 1, 1),
       formatter,
       onPickerConfirm,
     }
