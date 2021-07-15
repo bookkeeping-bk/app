@@ -15,17 +15,19 @@ export default defineComponent({
   name: 'BeInput',
 
   props: {
-    modelValue: {},
+    modelValue: { type: String, default: '' },
     type: { type: String, default: 'text' },
-    placeholder: String,
+    placeholder: { type: String, default: '' },
   },
 
+  // eslint-disable-next-line vue/no-setup-props-destructure
   setup({ modelValue }, { emit }) {
     const currentValue = ref(modelValue || '')
 
-    const updateValue = (event: InputEvent) => {
+    const updateValue = (event: Event) => {
       const targetValue = (event.target as HTMLInputElement).value
       currentValue.value = targetValue
+      // eslint-disable-next-line vue/require-explicit-emits
       emit('update:modelValue', targetValue)
     }
 
