@@ -35,7 +35,7 @@
     "prettier": "^2.3.1",
     "sass": "^1.34.1",
     "typescript": "^4.3.2",
-    "vconsole": "^3.7.0",
+    "vconsole": "^3.9.0",
     "vite": "^2.3.7",
     "vite-plugin-html": "^2.0.7",
     "vite-plugin-style-import": "^0.10.1",

@@ -81,6 +81,7 @@ export default defineComponent({
   top: 0;
   left: 0;
   z-index: 5;
+  background: url('@/assets/images/bg.jpeg') no-repeat center / cover;
 
   &:before {
     content: '';

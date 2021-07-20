@@ -14,5 +14,6 @@ import '@/assets/scss/common.scss'
 
 // plugins
 import Vant from '@/plugins/vant'
+import '@/plugins/vconsole'
 
 createApp(App).use(router).use(store).use(Vant).mount('#app')
