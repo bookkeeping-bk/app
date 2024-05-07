@@ -1,6 +1,6 @@
 # 懒得记
 
-🎉 Vue3 全家桶 + Vant 组件库搭建。技术栈为 Vue3 + TS + Vite2 + Vant3 + Vue + Vuex4 + Vue-Router4
+🎉 Vue3 全家桶 + Vant 组件库搭建。技术栈为 Vue3 + TS + Vite2 + Vant3 + Vuex4 + Vue Router4
 
 ## 页面展示
 
